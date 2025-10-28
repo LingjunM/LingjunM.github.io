@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lingjunm.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="https:&#x2F;&#x2F;www.bioinformatics.babraham.ac.uk&#x2F;projects&#x2F;fastqc&#x2F;Help&#x2F;https:&#x2F;&#x2F;sequencing.qcfail.com&#x2F;https:&#x2F;&#x2F;rtsf.natsci.msu.edu&#x2F;genomics&#x2F;technical-documents&#x2F;fastqc-tutorial-and-faq.aspx 输出结果解读FastQC 在分析后会生成H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastqc使用">
+<meta property="og:url" content="https://lingjunm.github.io/2025/07/17/fastqc%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="读研日记">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.bioinformatics.babraham.ac.uk&#x2F;projects&#x2F;fastqc&#x2F;Help&#x2F;https:&#x2F;&#x2F;sequencing.qcfail.com&#x2F;https:&#x2F;&#x2F;rtsf.natsci.msu.edu&#x2F;genomics&#x2F;technical-documents&#x2F;fastqc-tutorial-and-faq.aspx 输出结果解读FastQC 在分析后会生成H">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-17T01:36:50.000Z">
+<meta property="article:modified_time" content="2025-08-08T08:29:50.534Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="fastqc">
+<meta property="article:tag" content="工具使用">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lingjunm.github.io/2025/07/17/fastqc%E4%BD%BF%E7%94%A8/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://lingjunm.github.io/2025/07/17/fastqc%E4%BD%BF%E7%94%A8/","path":"2025/07/17/fastqc使用/","title":"fastqc使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>fastqc使用 | 读研日记</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">读研日记</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">输出结果解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Statistics"><span class="nav-number">1.1.</span> <span class="nav-text">Basic Statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-base-sequence-quality"><span class="nav-number">1.2.</span> <span class="nav-text">Per base sequence quality</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-sequence-quality-scores"><span class="nav-number">1.3.</span> <span class="nav-text">Per sequence quality scores</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-base-sequence-content"><span class="nav-number">1.4.</span> <span class="nav-text">Per base sequence content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-sequence-GC-content"><span class="nav-number">1.5.</span> <span class="nav-text">Per sequence GC content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-base-N-content"><span class="nav-number">1.6.</span> <span class="nav-text">Per base N content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-Length-Distribution"><span class="nav-number">1.7.</span> <span class="nav-text">Sequence Length Distribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-Duplication-Levels"><span class="nav-number">1.8.</span> <span class="nav-text">Sequence Duplication Levels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overrepresented-Sequences"><span class="nav-number">1.9.</span> <span class="nav-text">Overrepresented Sequences</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter-Content"><span class="nav-number">1.10.</span> <span class="nav-text">Adapter Content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-Tile-Sequence-Quality"><span class="nav-number">1.11.</span> <span class="nav-text">Per Tile Sequence Quality</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%96%87%E5%BA%93%E5%AF%B9%E5%BA%94%E7%9A%84FastQC-%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">常见文库对应的FastQC 结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Small-micro-RNA"><span class="nav-number">2.1.</span> <span class="nav-text">Small (micro) RNA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Amplicon-metagenomics"><span class="nav-number">2.2.</span> <span class="nav-text">Amplicon&#x2F;metagenomics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bisulfite-Seq-BS-Seq-Methyl-Seq"><span class="nav-number">2.3.</span> <span class="nav-text">Bisulfite-Seq&#x2F;BS-Seq&#x2F;Methyl-Seq</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter-dimer-contamination"><span class="nav-number">2.4.</span> <span class="nav-text">Adapter dimer contamination</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Meng</p>
+  <div class="site-description" itemprop="description">生物学拾遗</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lingjunm.github.io/2025/07/17/fastqc%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读研日记">
+      <meta itemprop="description" content="生物学拾遗">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="fastqc使用 | 读研日记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fastqc使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-17 09:36:50" itemprop="dateCreated datePublished" datetime="2025-07-17T09:36:50+08:00">2025-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-08-08 16:29:50" itemprop="dateModified" datetime="2025-08-08T16:29:50+08:00">2025-08-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/</a><br><a target="_blank" rel="noopener" href="https://sequencing.qcfail.com/">https://sequencing.qcfail.com/</a><br><a target="_blank" rel="noopener" href="https://rtsf.natsci.msu.edu/genomics/technical-documents/fastqc-tutorial-and-faq.aspx">https://rtsf.natsci.msu.edu/genomics/technical-documents/fastqc-tutorial-and-faq.aspx</a></p>
+<h1 id="输出结果解读"><a href="#输出结果解读" class="headerlink" title="输出结果解读"></a>输出结果解读</h1><p>FastQC 在分析后会生成HTML报告，为每个模块分配一个“Passed”、“Warn”或“Fail”的标志。分配标志所依据的阈值，是基于高质量的whole genome shotgun DNA sequencing方法决定的。<br>对于 mRNA-Seq、small RNA-Seq、methyl-seq、targeted capture或amplicon sequencing等数据，这些阈值的适用性较差。<br>因此，某个模块出现“警告”或“失败”标志，并不意味着实验本身失败。应结合样本的背景和测序类型，思考结果的实际意义。</p>
+<h2 id="Basic-Statistics"><a href="#Basic-Statistics" class="headerlink" title="Basic Statistics"></a>Basic Statistics</h2><ul>
+<li>Filename: 原始文件名。</li>
+<li>File type: 文件包含真实的 base calls 还是需要转换为 base calls 的colorspace(一般不需要转换)数据。</li>
+<li>Encoding: 质量值的编码方式 参考FASTQ文件格式。</li>
+<li>Total Sequences: 处理的序列总数。</li>
+<li>Total Bases: 碱基总数。</li>
+<li>Sequences flagged as poor quality: 标记为需要过滤的序列，报告的统计结果不会包含这些序列(根据官方文档，在处理casava数据时用到该指标，因此一般不用考虑)</li>
+<li>Sequence Length: 报告最短和最长序列的长度。如果相同，则只报告一个值。</li>
+<li>%GC: 所有序列中所有碱基的 GC 含量。</li>
+</ul>
+<p>该模块不会报告 warnings 或 errors</p>
+<h2 id="Per-base-sequence-quality"><a href="#Per-base-sequence-quality" class="headerlink" title="Per base sequence quality"></a>Per base sequence quality</h2><p>FastQ 文件中每个位置跨所有reads碱基的质量值范围。</p>
+<p>箱线图中的y轴表示质量分。得分越高，碱基识别越准确。y轴分为三个区域：高质量（绿色）、中等质量（橙色）和低质量（红色）。<br>红线表示中位数。黄色盒子代表Q1,Q3四分位距。上下须线代表第10百分位和第90百分位。蓝线代表平均值。<br>x轴坐标是非均匀的。</p>
+<p>没有yellow box?   <a target="_blank" rel="noopener" href="https://github.com/s-andrews/FastQC/issues/111">https://github.com/s-andrews/FastQC/issues/111</a><br>如果数据的质量分都非常高，例如，从第10百分位到第90百分位的所有质量分都相同，那么就没有分布差异可以显示。</p>
+<p>大多数测序平台的碱基识别质量会随着测序过程的进行而下降，因此在读段的末尾部分看到碱基落入橙色区域是常见的现象。<br>With paired end reads the average quality scores for read 1 will almost always be higher than for read 2.</p>
+<p>FastQC会自动判断FastQ文件中质量分的编码方式，并在图的标题指明，但<strong>有时它可能会判断错误</strong>（数据普遍质量非常好时）。</p>
+<p>如果输入的是BAM&#x2F;SAM文件，且没有记录质量得分，那么不会显示本模块的结果。</p>
+<p>如果任何位置的下四分位数小于10，或者中位数小于25，则警告。<br>如果任何位置的下四分位数小于5，或者中位数小于20，则标记为失败。</p>
+<p>通常，随着测序进行，反应不再同步，失误增加，导致整体碱基质量下降，从而触发警告或错误。<br>如果文库质量下降到较低水平，最常见的补救措施是quality trimming，即根据平均质量截断reads。对于大多数发生这种质量下降的文库，你通常还会遇到adapter read-through的问题，需要同时进行adapter trimming。<br>另一种可能是：测序开始时质量短暂下降，之后恢复高质量。这种情况可能由测序过程中的短暂问题引起（例如气泡通过 flowcell）。你可以通过查看 per-tile quality图来识别这类问题。在这种情况下，不建议剪裁，因为这会删除后续的高质量序列，可以考虑在后续比对或组装过程中进行掩码或软剪裁。<br>如果你的文库中reads长度不一致，那么在某些碱基位置可能会因为覆盖度低而触发警告或错误。建议先查看sequence length distribution 模块的结果，。</p>
+<p>What to look for: It is normal with all Illumina sequencers for the median quality score to start out lower over the first 5-7 bases and to then rise. The average quality score will steadily drop over the length of the read. With paired end reads the average quality scores for read 1 will almost always be higher than for read 2.</p>
+<h2 id="Per-sequence-quality-scores"><a href="#Per-sequence-quality-scores" class="headerlink" title="Per sequence quality scores"></a>Per sequence quality scores</h2><p>reads平均质量的分布，查看是否有一部分序列整体质量偏低。<br>通常，有一部分序列的整体质量会较差，这通常是因为成像质量不好（例如位于视野边缘等）。不过，这些低质量序列应该只占一小部分。</p>
+<p>如果很大一部分序列的整体质量都很低，这可能表明存在某种系统性问题——（例如 flowcell 的某一端）。<br>如果输入的是一个没有记录质量分的 BAM&#x2F;SAM 文件，本模块的结果将不会显示。</p>
+<p>如果平均质量得分的众数低于27——相当于0.2%的错误率，会发出警告。<br>如果平均质量得分的众数低于20——相当于1%的错误率，会标记为失败。</p>
+<p>这个模块通常是相当稳定的。在图右侧看到尖峰。<br>如果看到双峰分布或复杂的分布模式，则应结合Per Tile Sequence Quality图（如果支持）来评估结果。</p>
+<h2 id="Per-base-sequence-content"><a href="#Per-base-sequence-content" class="headerlink" title="Per base sequence content"></a>Per base sequence content</h2><p><a target="_blank" rel="noopener" href="https://sequencing.qcfail.com/articles/positional-sequence-bias-in-random-primed-libraries/">https://sequencing.qcfail.com/articles/positional-sequence-bias-in-random-primed-libraries/</a></p>
+<p>假设测序不存在任何偏好，所有碱基都有同样的机会出现在reads的任意位置上。任何位置的各碱基的含量将等于样本基因组中各碱基的含量，能看到四条平行的线。G≡C、A&#x3D;T，因此G和C的线理想情况下应该是重叠的，A和T的也应该是。（whole genome shotgun DNA sequencing）</p>
+<p>绘制每个位置上四种碱基的比例。<br>在一个随机文库中，不同碱基之间的比例差异很小或没有，因此各条线应该彼此平行。每种碱基的相对比例反映基因组中对应的总体比例，不应该出现显著的不平衡。</p>
+<p>某些类型的文库总是会产生有偏倚的序列组成，通常在read的起始位置。<br>使用随机六聚体引物（几乎所有 RNA-Seq 文库）建库，以及使用转座酶进行片段化的文库，在read起始位置上会出现固有的偏倚。这种偏倚与某个特定的序列无关，而是表现为read 5’ 端会出现多种不同 K-mer 的富集。虽然这是真实的技术偏倚，但它无法通过trim纠正，在大多数情况下也不会对下游分析产生不利影响。<strong>当然它会导致本模块发出警告或错误</strong>。<br>reads末端出现不平行，可能是因为测到了接头序列。</p>
+<p>如果在任意位置上 A 与 T 或 G 与 C 的比例差距超过 10%，将发出警告。<br>如果在任意位置上 A 与 T 或 G 与 C 的比例差距超过 20%，将标记为失败。</p>
+<ul>
+<li>Overrepresented sequences：如果样本中存在overrepresented sequences，也即duplicate rate很高，例如接头二聚体或 rRNA，可能会导致整体组成偏倚。</li>
+<li>片段化偏倚：理论上，基于随机六聚体或转座酶构建的文库应该具有良好的多样性，但经验表明，这些文库在前12个碱基左右总是存在选择性bias。这是因为随机引物的选择存在偏倚，某些六聚体在引物延伸步骤中更受青睐，并不代表存在某条特定的偏倚序列。几乎所有的 RNA-Seq 文库都会因为这种偏倚而触发fail，这不会对下游分析产生不利影响。</li>
+<li>Biased composition文库：一些文库在序列组成上存在偏倚。最明显的例子是亚硫酸氢盐处理的文库，大部分胞嘧啶（C）转化为胸腺嘧啶（T），从而触发错误，尽管这种现象对这类文库来说是完全正常的。还有可能在ChIP-seq 实验中富集特定碱基 含量较高的序列。</li>
+<li>如果你分析的是接头过度剪裁的文库，你会自然地在reads末尾引入bias，因为那些恰好匹配接头部分的序列会被移除。因此末端突然出现的bias可能是人为造成的。</li>
+</ul>
+<h2 id="Per-sequence-GC-content"><a href="#Per-sequence-GC-content" class="headerlink" title="Per sequence GC content"></a>Per sequence GC content</h2><p>该模块会计算每条序列的 GC 含量，并与模拟的正态分布进行比较。<br>在一个正常的随机文库中，期望看到一个大致呈正态分布的GC含量，中间的峰值对应基因组整体的 GC 含量。<br>由于我们不知道基因组的真实 GC 含量，因此会从数据中计算出 GC 含量的众数，并以此构建参考分布。<br>如果分布形状异常，可能表示文库受到污染，或存在biased 序列。<br>如果分布呈正态但整体偏移，可能表示存在某种与碱基位置无关的系统性偏倚。模块不会将其标记为错误，因为它并不知道你的基因组的 GC 含量。</p>
+<p>在 RNA-Seq 中，不同转录本之间的平均 GC 含量可能存在更大或更小的差异，导致观察到的分布比理想化的正态分布更宽或更窄，这是正常的</p>
+<p>如果偏离正态分布的reads比例总和超过 15%，则会发出警告。<br>如果偏离正态分布的reads比例总和超过 30%，则标记为失败。</p>
+<p>在原本平滑的分布中出现尖锐的峰，通常是由于某种特定污染物（例如接头二聚体，高表达基因）引起的，这种情况可以被Overrepresented Sequences模块检测到。<br>较宽的峰可能表示被另一种物种污染。</p>
+<h2 id="Per-base-N-content"><a href="#Per-base-N-content" class="headerlink" title="Per base N content"></a>Per base N content</h2><p>该模块绘制每个位置上N的比例。<br>如果某个碱基可信度不足，测序仪通常会用N代替。在序列的末端出现少量的N是正常的。</p>
+<p>如果任意一个位置上的N含量超过 5%，将发出警告。<br>如果任意一个位置上的N含量超过20%，将标记为失败。</p>
+<p>在这个分析中最后一个bin可能只包含少量的序列，注意检查。</p>
+<p>在起始位置附近，有少量位置出现了较高的N，而整体质量仍然较好。这种情况通常发生在文库的序列组成严重偏倚时，仪器无法精确识别碱基。可以通过Per Base Sequence Content验证。</p>
+<h2 id="Sequence-Length-Distribution"><a href="#Sequence-Length-Distribution" class="headerlink" title="Sequence Length Distribution"></a>Sequence Length Distribution</h2><p>本模块展示reads长度的分布。<br>一些测序仪生成的reads长度是统一的，而另一些可能产生长度差异很大的reads。<br>某些分析流程也会对序列进行剪裁，导致长度不一。</p>
+<p>通常只会显示单一的峰值，但对于长度不一致的文件，将显示不同长度片段的（相对）数量。</p>
+<p>如果所有序列长度不一，将发出警告。<br>如果存在长度为零的序列，将标记失败。</p>
+<p>对于某些测序平台，reads长度不一致是正常现象。</p>
+<h2 id="Sequence-Duplication-Levels"><a href="#Sequence-Duplication-Levels" class="headerlink" title="Sequence Duplication Levels"></a>Sequence Duplication Levels</h2><p>在一个多样化的文库中，大多数序列最终只会出现一次。较低的重复率可能表示目标序列具有很高的测序覆盖度，而较高的重复率表明存在某种富集偏倚（例如 PCR 扩增过度）。<br>该模块会统计文库中每条序列的重复程度，并展示不同重复程度的序列的相对数量。<br>为了减少内存需求，仅分析文件前 100,000 条序列中首次出现的序列，这足以反映整个文件的重复水平。所有重复次数超过 10 次的序列会被归入一个区间，从而清晰地展示整体重复水平。</p>
+<p>由于重复检测需要整条序列完全匹配，因此对于长度超过 75bp 的reads，会在分析时将其截断到50bp。较长的reads更容易包含测序错误，这会人为地增加观察到的多样性，并可能导致高度重复的序列被低估。</p>
+<p>该图展示了不同重复水平区间中序列在文库中所占的比例。图中有两条线：蓝色线表示原始数据集的重复分布情况；红色线表示去重后，独特序列的重复水平分布。</p>
+<p>在一个真正多样化的文库中，大多数序列在蓝色和红色曲线上都应出现在图的最左侧。如果文库存在整体富集，即存在过度测序，会导致曲线变平，降低低重复水平的比例，同时提高其他重复水平的比例。<br>某些特定序列的富集，或低复杂度污染物的存在，通常会在图的右侧产生尖峰。这些高重复尖峰通常会出现在蓝色曲线中（在原始文库中占比高），但在红色曲线中通常消失（在去重后几乎不占比例）。如果在红色曲线上仍有尖峰存在，则表明存在大量不同但高度重复的序列，这意味着可能存在污染物，或严重的技术性重复。</p>
+<p>该模块还会计算对文库去重后预期的序列损失并显示在图的顶部。</p>
+<p>如果非唯一序列占比超过 20%，将发出警告。<br>如果非唯一序列占比超过 50%，将标记失败。</p>
+<p>该模块的基本假设是文库具有多样性和非富集性。任何偏离这一假设的情况都可能产生重复序列，从而导致警告或错误。</p>
+<p>一般来说，文库中存在两种可能的重复类型：一种是PCR 技术重复；另一种是生物学重复，即不同拷贝的相同序列被随机选择。单纯从序列层面无法区分这两者，因此它们都会被报告为重复序列。<br>该模块的警告或错误只是说明文库失去一部分多样性，并在重复测序相同的序列。然而，对于某些类型的文库，你可能会自然地对某些区域过度测序，从而产生重复，因此预期该模块会发出警告或错误。</p>
+<p>在 RNA-Seq 文库中，不同转录本的起始丰度差异很大。为了检测低表达的转录本，通常会对高表达的转录本（rRNA，看家基因，组织特异性高表达基因）过度扩增，产生大量重复序列。这会导致整体重复率较高，在高重复区间中出现尖峰。通过分析特定基因组区域的重复分布，可以区分是过度测序还是技术重复，但仅凭原始 FASTQ 文件无法做到。<br>在高度富集的 ChIP-Seq 文库中也会出现类似情况，不过重复程度通常较低。<br>最后，如果你的文库起始位点受限（例如基于限制性位点构建的文库，或未片段化的 small RNA 文库），那么受限的起始位点将导致高重复率，这不应被视为问题，也不应执行去重操作。对于这类文库，建议使用如random barcoding等方法来区分技术性重复和生物学重复。</p>
+<h2 id="Overrepresented-Sequences"><a href="#Overrepresented-Sequences" class="headerlink" title="Overrepresented Sequences"></a>Overrepresented Sequences</h2><p>一个正常的高通量测序文库包含多样化的序列，任何单一序列在文库中所占比例都应非常小。<br>如果发现某条序列在文库中占比异常高，可能意味着它具有重要的生物学意义，也可能表示文库存在污染，或者多样性低于预期。</p>
+<p>该模块会列出所有占比超过 0.1% 的序列。为了节省内存，仅统计文件前100,000条序列中的独特序列的出现频率。因此，有可能某条序列虽然占比很高但被遗漏。</p>
+<p>对于每条overrepresented sequence，程序会在数据库中查找并报告最佳匹配结果。匹配长度至少为 20bp，且最多允许1个错配。请注意，许多接头序列彼此非常相似，Hit的结果不是绝对精确的。<br>较长的reads更容易包含测序错误，人为地增加多样性，并可能导致高度重复的序列被低估。<br>对于长度超过 75bp 的reads，会截断为50bp。</p>
+<p>如果发现某条序列的占比超过 0.1%，将发出警告。<br>如果发现某条序列的占比超过 1%，将标记为失败。</p>
+<p>在 RNA-Seq 数据中，某些转录本可能丰度极高，导致在分析中被识别为overrepresented sequence。<br>该模块在分析 small RNA 文库时经常触发，这类文库通常未经过随机片段化处理，某些序列天然占比较高。</p>
+<h2 id="Adapter-Content"><a href="#Adapter-Content" class="headerlink" title="Adapter Content"></a>Adapter Content</h2><p>Kmer Content 模块会对文库中的所有 Kmer 进行分析，可以检测出多种导致bias的因素，例如在测通的reads末端出现的接头序列残留。了解文库中是否含有大量接头序列，有助于判断是否需要进行接头剪切。<br>然而你会发现，如果文库中存在任何overrepresented sequence（如接头二聚体），它们所包含的 Kmer 将主导 Kmer 图谱，因此难以判断是否还存在其他bias。因此，该模块会专门搜索一组预定义的 Kmer，并展示有多少比例的序列包含这些 Kmer。对于接头配置文件中列出的所有序列，系统都会生成结果曲线，以便查看接头含量。</p>
+<p>该图显示的是在每个位置上检测到每种接头序列的累计百分比。一旦在一个read的某个位置检测到目标序列，从当前位置到该read的末端的所有位置都被认为包含该序列。因此接头百分比只会随着read长度增加而上升。</p>
+<p>如果某序列出现在超过 5% 的reads中，将发出警告。<br>如果某序列出现在超过 10% 的reads中，将标记为失败。</p>
+<p>如果一个文库(RNA-seq，ATAC-seq等)，有相当比例的插入片段长度短于测序读长，都会触发该模块。这不代表存在问题，只是需要在下游分析之前对序列进行接头剪切处理。</p>
+<h2 id="Per-Tile-Sequence-Quality"><a href="#Per-Tile-Sequence-Quality" class="headerlink" title="Per Tile Sequence Quality"></a>Per Tile Sequence Quality</h2><p>只有使用 Illumina 测序仪且数据保留了原始的序列标识符，才会执行该分析。这些标识符中编码了每条read来自测序芯片的哪片区域（tile）。查看每个 tile 在所有位置上的质量分，可以判断是否在芯片局部区域出现了质量下降问题。</p>
+<p>该图显示每个 tile 在每个位置上相对于平均质量的偏差。冷色表示tile在对应位置的质量等于或高于平均水平；热色表示该 tile 的质量低于平均水平。一个理想的图谱应该整体呈现蓝色。</p>
+<p>出现警告或错误的原因可能是短暂的问题，例如气泡流过测序芯片；也可能是更持久的问题，例如芯片表面污渍或lane内的杂质。</p>
+<p>如果某个tile在某个位置上的平均质量值比所有tile的平均值低 2 分以上，将发出警告。<br>如果某个tile在某个位置上的平均质量值比所有tile的平均值低 5 分以上，将标记失败。</p>
+<p>我们还观察到，当测序芯片整体负载过高时，不同 tile 的 质量值差异也会增大。此时异常会遍布整个芯片，而不是局限于某个区域或某些cycle。通常会忽略那些仅影响少量 tile、持续 1 到 2 个循环的轻微异常；但对于质量得分偏差较大、或持续多个循环的显著影响需要进一步研究。</p>
+<h1 id="常见文库对应的FastQC-结果"><a href="#常见文库对应的FastQC-结果" class="headerlink" title="常见文库对应的FastQC 结果"></a>常见文库对应的FastQC 结果</h1><p><a target="_blank" rel="noopener" href="https://rtsf.natsci.msu.edu/genomics/technical-documents/fastqc-tutorial-and-faq.aspx">https://rtsf.natsci.msu.edu/genomics/technical-documents/fastqc-tutorial-and-faq.aspx</a><br>报告下载连接</p>
+<h2 id="Small-micro-RNA"><a href="#Small-micro-RNA" class="headerlink" title="Small (micro) RNA"></a>Small (micro) RNA</h2><p>Small RNA libraries typically consist of a relatively small set of unique, short sequences. Small RNA libraries are not randomly sheared before adding sequencing adapters to their ends meaning all the reads for specific classes of miRNA will be identical.</p>
+<p>Expected results are:</p>
+<p>Extremely biased per base sequence content<br>Extremely narrow distribution of GC content<br>Very high sequence duplication levels<br>Abundance of overrepresented sequences<br>Read through into adapters</p>
+<h2 id="Amplicon-metagenomics"><a href="#Amplicon-metagenomics" class="headerlink" title="Amplicon&#x2F;metagenomics"></a>Amplicon&#x2F;metagenomics</h2><p>Amplicon libraries are prepared by PCR amplification of a specific target, for example the V4 hypervariable region of the bacterial 16S rRNA gene. All reads from this type of library are expected to be nearly identical.</p>
+<p>Expected results are:</p>
+<p>Extremely biased per base sequence content<br>Extremely narrow distribution of GC content<br>Very high sequence duplication levels<br>Abundance of overrepresented sequences<br>In cases where the PCR target is shorter than the read length, the sequence will read through into adapters</p>
+<h2 id="Bisulfite-Seq-BS-Seq-Methyl-Seq"><a href="#Bisulfite-Seq-BS-Seq-Methyl-Seq" class="headerlink" title="Bisulfite-Seq&#x2F;BS-Seq&#x2F;Methyl-Seq"></a>Bisulfite-Seq&#x2F;BS-Seq&#x2F;Methyl-Seq</h2><p>Bisulfite (methyl) Seq libraries have had the majority of the cytosine (C) bases converted to thymine (T).</p>
+<p>Expected results:</p>
+<p>Biased per base sequence content<br>Biased per sequence GC content</p>
+<h2 id="Adapter-dimer-contamination"><a href="#Adapter-dimer-contamination" class="headerlink" title="Adapter dimer contamination"></a>Adapter dimer contamination</h2><p>Any library type may contain a very small percentage of adapter dimer (i.e. no insert) fragments; these are more likely to be found in amplicon libraries constructed entirely by PCR (by formation of PCR primer-dimers) than in DNA-Seq or RNA-Seq libraries constructed by adapter ligation. If a sufficient fraction of the library is adapter dimer it will become noticeable in the FastQC report.</p>
+<p>Expected observations with adapter dimer contamination:</p>
+<p>Drop in per base sequence quality after base 60<br>Possible bi-modal distribution of per sequence quality scores<br>Distinct pattern observed in per bases sequence content up to base 60<br>Spike in per sequence GC content<br>Overrepresented sequence matching adapter<br>Adapter content &gt; 0% starting at base 1</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><a target="_blank" rel="noopener" href="https://hbctraining.github.io/Training-modules/planning_successful_rnaseq/lessons/QC_raw_data.html">https://hbctraining.github.io/Training-modules/planning_successful_rnaseq/lessons/QC_raw_data.html</a></p>
+<p>Overclustering: Sequencing facilities can overcluster the flow cells, which results in small distances between clusters and an overlap in the signals. The two clusters can be interpreted as a single cluster with mixed fluorescent signals being detected, decreasing signal purity, generating lower quality scores across the entire read.</p>
+<p>Instrumentation breakdown: Sequencing facilities can occasionally have issues with the sequencing instruments during a run. Any sudden drop in quality or a large percentage of low quality reads across the read could indicate a problem at the facility. Examples of such issues include a manifold burst, cycles lost, and read 2 failure. </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/fastqc/" rel="tag"># fastqc</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag"># 工具使用</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/17/macs2/" rel="prev" title="MACS2使用">
+                  <i class="fa fa-angle-left"></i> MACS2使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/17/%E9%93%BE%E7%89%B9%E5%BC%82%E6%80%A7/" rel="next" title="链特异性">
+                  链特异性 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Meng</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
